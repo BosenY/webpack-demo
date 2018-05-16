@@ -2,10 +2,10 @@
 
 ## 具体几个概念
 
-loader和plugin区别
+loader 和 plugin 区别
 
-* loader: 相当于一个转换器， 把文件进行转换
-* plugin: 一个扩展器，它丰富了 webpack 本身，是针对于 loader 结束之后，它不会直接去操作文件，而是基于了事件机制  工作， 来监听 webpack 打包过程当中的  某些节点:
+* loader: 相当于一个转换器， 把文件进行转换
+* plugin: 一个扩展器，它丰富了 webpack 本身，是针对于 loader 结束之后，它不会直接去操作文件，而是基于了事件机制 工作， 来监听 webpack 打包过程当中的 某些节点:
 
 ```js
 {
@@ -20,28 +20,26 @@ loader和plugin区别
 }
 ```
 
-
 ### 自动编译
 
-webpack提供了三种自动编译代码的方法：
+webpack 提供了三种自动编译代码的方法：
 
-- 使用`watch` 模式
-- `webpack-dev-server`
-- `webpack-dev-middleware`
+* 使用`watch` 模式
+* `webpack-dev-server`
+* `webpack-dev-middleware`
 
 #### watch
 
-在运行webpack的命令后面加上 `--watch`，他会去监听依赖图中所有文件的更改，一旦更改，代码就会被重新编译，但有明显的缺点： 你必须手动刷新浏览器
-
+在运行 webpack 的命令后面加上 `--watch`，他会去监听依赖图中所有文件的更改，一旦更改，代码就会被重新编译，但有明显的缺点： 你必须手动刷新浏览器
 
 #### webpack-dev-server
 
 帮你启动一个服务来进行开发，会直接自动编译
 
-优点：简单，vue-cli的开发环境就是用这种方式来启动的
+优点：简单，vue-cli 的开发环境就是用这种方式来启动的
 
 #### webpack-dev-middleware
 
-自定义一个容器，结合一个自启动的服务器来搭配使用，比如`koa`和`express`
+自定义一个容器，结合一个自启动的服务器来搭配使用，比如`koa`和`express`
 
-优点：高度自定义，可以在server中写其他逻辑
+优点：高度自定义，可以在 server 中写其他逻辑
