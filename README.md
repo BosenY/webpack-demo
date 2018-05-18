@@ -43,3 +43,17 @@ webpack 提供了三种自动编译代码的方法：
 自定义一个容器，结合一个自启动的服务器来搭配使用，比如`koa`和`express`
 
 优点：高度自定义，可以在 server 中写其他逻辑
+
+#### 对于 vue
+
+`vue-cli init` 的项目当中，在 dev 环境下是直接使用的 `webpack-dev-server` 的，自定义的也不需要写 module.hot 来判断热更新，因为 `vue-loader` 当中已写好了
+
+### side-effect-free 和 压缩输出
+
+我们在 package.json 当中如果加入 `sideEffects`这个属性，并设置为`false`，就可以让 `webpack` 在打包时将没用到的 `import` 的模块删除掉。
+
+当然除了`false`它还可以设置一个数组来表明这些文件删除没用的代码会有安全问题，这样打包时就不会被删除
+
+`webpack3` 时我们需要自己去  配置 `uglifyjs` 插件让代码压缩混淆。但 `webpack4` 只要 `mode` 为 `production` 时 webpack 内部会自动调用 `UglifyJsPlugin`
+
+当然，你也可以用`--optimize-minimize`来调用
