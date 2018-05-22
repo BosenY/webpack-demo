@@ -50,10 +50,10 @@ webpack 提供了三种自动编译代码的方法：
 
 ### side-effect-free 和 压缩输出
 
-我们在 package.json 当中如果加入 `sideEffects`这个属性，并设置为`false`，就可以让 `webpack` 在打包时将没用到的 `import` 的模块删除掉。
+我们在 package.json 当中如果加入 `sideEffects`这个属性，并设置为`false`，就可以让 `webpack` 在打包时将没用到的 `import` 的模块删除掉。
 
 当然除了`false`它还可以设置一个数组来表明这些文件删除没用的代码会有安全问题，这样打包时就不会被删除
 
-`webpack3` 时我们需要自己去  配置 `uglifyjs` 插件让代码压缩混淆。但 `webpack4` 只要 `mode` 为 `production` 时 webpack 内部会自动调用 `UglifyJsPlugin`
+`webpack3` 时我们需要自己去  配置 `uglifyjs` 插件让代码压缩混淆。但 `webpack4` 只要 `mode` 为 `production` 时 webpack 内部会自动调用 `UglifyJsPlugin`
 
 当然，你也可以用`--optimize-minimize`来调用
