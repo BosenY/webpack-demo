@@ -9,7 +9,6 @@ if (process.env.NODE_ENV === 'production') {
 } else {
   config = require('./webpack.dev.js')
 }
-app.use('/', express.static(__dirname + '/dist'))
 
 const compiler = webpack(config)
 
@@ -33,6 +32,8 @@ if (process.env.NODE_ENV !== 'production') {
       reload: true
     })
   )
+} else {
+  app.use('/', express.static(__dirname + '/dist'))
 }
 
 let indexHTML

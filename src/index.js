@@ -1,15 +1,31 @@
-import _ from 'lodash'
+// import _ from 'lodash'
 import printMe from './print.js'
 import './style.css'
 import Dva from './dva.jpg'
 import Data from './data.xml'
 
 import { cube } from './main.js'
-function component() {
+
+// if ('serviceWorker' in navigator) {
+//   window.addEventListener('load', () => {
+//     navigator.serviceWorker
+//       .register('/service-worker.js')
+//       .then(registration => {
+//         console.log('SW registered: ', registration)
+//       })
+//       .catch(registrationError => {
+//         console.log('SW registration failed: ', registrationError)
+//       })
+//   })
+// }
+const component = () => {
   var element = document.getElementById('app')
 
   // Lodash（目前通过一个 script 脚本引入）对于执行这一行是必需的
-  element.innerHTML = _.join(['1Hello', 'My Dva' + cube(5)], ' ')
+  element.innerHTML = _.join(
+    ['Hello', 'My Dva11!' + '<br /> cube 5 :' + cube(5)],
+    ' '
+  )
   element.classList.add('hello')
 
   let mydva = new Image()
@@ -39,6 +55,7 @@ app.style.verticalAlign = 'middle'
 component()
 if (module.hot) {
   module.hot.accept()
+  module.hot.accept('./style.css')
   // module.hot.dispose(function() {
   //   clearInterval(timer);
   // });

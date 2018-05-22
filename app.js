@@ -1,3 +1,4 @@
+const logger = require('koa-logger')
 const koa = require('koa')
 const convert = require('koa-convert')
 const webpack = require('webpack')
@@ -8,14 +9,16 @@ const serve = require('koa-static')
 const webpackDevMiddleware = require('koa-webpack-dev-middleware')
 const webpackHotMiddleware = require('koa-webpack-hot-middleware')
 
+const opn = require('opn')
+
 const app = new koa()
+app.use(logger())
 const router = new Router()
-app.use(serve(path.join(__dirname, './dist')))
+let env = process.env.NODE_ENV
 let config
 let indexHTML
 
-if (process.env.NODE_ENV === 'production') {
-  console.log(11)
+if (env === 'production') {
   config = require('./webpack.prod.js')
 } else {
   config = require('./webpack.dev.js')
@@ -23,7 +26,7 @@ if (process.env.NODE_ENV === 'production') {
 
 const compiler = webpack(config)
 
-if (process.env.NODE_ENV !== 'production') {
+if (env !== 'production') {
   const devMiddleware = webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: config.output.publicPath,
@@ -42,7 +45,7 @@ if (process.env.NODE_ENV !== 'production') {
       })
     )
   )
-  clientCompiler.plugin('done', () => {
+  compiler.plugin('done', () => {
     let fs = devMiddleware.fileSystem
     let filePath = path.join(config.output.path, 'index.html')
     if (fs.existsSync(filePath)) {
@@ -51,20 +54,30 @@ if (process.env.NODE_ENV !== 'production') {
     }
   })
 } else {
-  console.log(11)
+  app.use(serve(path.join(__dirname, './dist')))
   indexHTML = fs.readFileSync(path.resolve('./dist/index.html'), 'utf-8')
 }
-console.log(indexHTML)
-// router.get('/', (ctx, next) => {
-//   console.log(indexHTML)
-//   if (!indexHTML) {
-//     ctx.body = 'waiting for compilation... refresh in a moment.'
-//   } else {
-//     ctx.set('Content-Type', 'text/html')
-//     ctx.body = indexHTML
-//   }
-// })
+
+router.get('/', (ctx, next) => {
+  if (!indexHTML) {
+    ctx.body = 'waiting for compilation... refresh in a moment.'
+  } else {
+    ctx.set('Content-Type', 'text/html')
+    ctx.body = indexHTML
+  }
+})
+router.get('/api', (ctx, next) => {
+  console.log(111)
+  ctx.body = {
+    res: true,
+    data: 'This is api '
+  }
+})
+app.use(router.routes()).use(router.allowedMethods())
 // Serve the files on port 3000.
-app.listen(3000, () => {
-  console.log('Example app listening on port 3000!\n')
+app.listen(4000, () => {
+  console.log('Example app listening on port http://localhost:4000!\n')
+  if (env === 'development') {
+    opn('http://localhost:4000')
+  }
 })

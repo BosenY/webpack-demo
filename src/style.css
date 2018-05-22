@@ -6,5 +6,49 @@
 }
 .hello {
   font-family: 'MyFont',cursive;
-  color: green;
+  color: blue;
 }
+#svg {
+  background-color: #FCEFD6;
+  overflow: hidden;
+  text-align:center;
+ }
+
+ /* p, body,
+ html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+ } */
+
+ svg {
+
+  width: 200px;
+  height: 200px;
+  /* visibility: hidden; */
+
+ }
+
+ .label{
+  fill:#FFFCF9;
+  font-size:1.8em;
+  font-family: "din-condensed-web", sans-serif;
+  /* font-family: "filson-soft", sans-serif; */
+  text-anchor:middle;
+  letter-spacing:1.2px;
+ }
+
+
+  .tubeLabel{
+  fill:#FCEFD6;
+  font-size:1.4em;
+  font-family: "din-condensed-web", sans-serif;
+  /* font-family: "filson-soft", sans-serif; */
+  text-anchor:middle;
+ }
+ .dragger{
+  -webkit-tap-highlight-color:transparent;
+ }
+
